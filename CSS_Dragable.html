@@ -1,0 +1,71 @@
+<style>
+body {
+}
+
+#page {
+	height: 100%;
+	background-color: pink;
+	display: grid;
+	grid-template-areas:
+		'header header header header header'
+		'leftcol leftdragbar tabs tabs tabs'
+		'leftcol leftdragbar codeEditor rightdragbar rightcol'
+		'leftcol leftdragbar footer footer footer';
+        
+	grid-template-rows: min-content 1fr 9fr 1fr;
+	/* grid-template-columns: 2fr 6px 6fr 6px 2fr; */
+    grid-template-columns: var(--IDEgridColOneWidth) 4px var(--centerGridCol) 4px var(--rightGridCol);
+}
+
+/*****************************/
+#header {
+  background-color: lightblue;
+  overflow: auto;
+  grid-area: header;
+}
+
+#idLeftSidebar {
+	background-color: #aaaaaa;
+	overflow: auto;
+	grid-area: leftcol;
+}
+
+#leftdragbar {
+	background-color: black;
+	grid-area: leftdragbar;
+	cursor: ew-resize;
+}
+
+#tabs {
+	background-color: #cccccc;
+	overflow: auto;
+	grid-area: tabs;
+}
+
+#idCodeEditor {
+	background-color: #888888;
+	overflow: auto;
+	grid-area: codeEditor;
+}
+
+#idPreviewDragbar {
+	background-color: black;
+	grid-area: rightdragbar;
+	cursor: ew-resize;
+}
+
+
+#rightcol {
+	background-color: #aaaaaa;
+	overflow: auto;
+	grid-area: rightcol;
+}
+
+#footer {
+	background-color: lightblue;
+	overflow: auto;
+	grid-area: footer;
+}
+</style>
+
+
