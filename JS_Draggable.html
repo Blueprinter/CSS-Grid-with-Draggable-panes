@@ -1,0 +1,93 @@
+<script>
+$aWellsSets.idOfLeftColumn = "idLeftSidebar";
+$aWellsSets.idOfRightColumn = "idHtmlPreview";
+$aWellsSets.clsOfDragContainer = "codeIDE_Container";
+$aWellsSets.dragDirection = null
+
+window.cl = function(a,b) {
+  console.log(a + ":" + b)
+}
+
+window.AlanWells.getDragContainer = function() {
+  return document.getElementsByClassName($aWellsSets.clsOfDragContainer)[0];
+}
+
+window.AlanWells.setCursor = function(cursor) {
+  let page = AlanWells.getDragContainer();
+  page.style.cursor = cursor;
+}
+
+window.AlanWells.dragGridInEditor = function(w) {
+  /*
+    w = 'left' or 'right'
+    This runs when the drag bar is clicked
+  */
+  
+  cl("w",w)
+  let page = AlanWells.getDragContainer();
+  cl('page.className',page.className)
+  
+  page.addEventListener("mousemove", AlanWells.nowDragging, false);//Only add the event listener if the dragbar has been
+  //clicked so that the code is not constantly running
+  page.addEventListener("mouseup",AlanWells.dragIzDone, false);
+  
+  $aWellsSets.dragDirection = w;
+  AlanWells.setCursor("ew-resize");
+}
+
+window.AlanWells.dragBarMouseUp = function() {
+  cl('dragBarMouseUp','ran');
+  AlanWells.dragIzDone()
+}
+
+window.AlanWells.dragIzDone = function() {
+  cl('dragIzDone','ran');
+  $aWellsSets.dragDirection = false;
+  AlanWells.setCursor("auto");//Reset the cursor
+  let page = AlanWells.getDragContainer();
+  page.removeEventListener("mousemove", AlanWells.nowDragging, false);//Remove so that the code is not constantly firing
+  page.removeEventListener("mouseup", AlanWells.dragIzDone, false);
+}
+
+window.AlanWells.nowDragging = function(event) {
+  var c,pageWidth;
+  cl('nowDragging','ran');
+  cl('$aWellsSets.dragDirection',$aWellsSets.dragDirection);
+  
+  if(!$aWellsSets.dragDirection) {//Falsy
+    return;
+  }
+   
+  cl('event.clientX',event.clientX);
+  
+  let page = AlanWells.getDragContainer();
+  let leftcol = document.getElementById($aWellsSets.idOfLeftColumn);
+  let rightcol = document.getElementById($aWellsSets.idOfRightColumn);	
+
+  pageWidth = page.clientWidth;
+  cl('pageWidth 64',pageWidth)
+  
+  var leftColWidth = $aWellsSets.dragDirection === 'left' ? event.clientX : leftcol.clientWidth;
+  cl('leftColWidth 64',leftColWidth)
+  
+  var rightColWidth = $aWellsSets.dragDirection === 'right' ? page.clientWidth - event.clientX : rightcol.clientWidth;
+
+  var dragbarWidth = 4;
+  var centerSectionWidth = (page.clientWidth - (2 * dragbarWidth) - leftColWidth - rightColWidth).toString();
+  
+  centerSectionWidth = (Math.round((centerSectionWidth / pageWidth) * 100)).toString() + "%";
+  
+  var strLeftColWidth = (Math.round((leftColWidth / pageWidth) * 100)).toString() + "%";
+  var strRightColWidth = (Math.round((rightColWidth / pageWidth) * 100)).toString() + "%";
+  dragbarWidth = dragbarWidth.toString() + "px";
+
+  var r = document.querySelector(':root');//Get the CSS variables
+  r.style.setProperty('--IDEgridColOneWidth', strLeftColWidth);//Set the CSS variable with a new value
+  r.style.setProperty('--centerGridCol', centerSectionWidth);
+  r.style.setProperty('--rightGridCol', strRightColWidth);
+  
+  //event.preventDefault();
+}
+</script>
+
+
