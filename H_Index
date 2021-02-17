@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <?!= HtmlService.createHtmlOutputFromFile("CSS_Dragable.html").getContent() ?>
+    <script>
+      window.AlanWells = {};
+      window.$aWellsSets = {};
+    </script>
+    
+    <style>
+      :root {/* define global CSS variables */
+        --IDEgridColOneWidth: 2fr;/* This is the CSS variable for the left most column in the grid */
+        --centerGridCol: 6fr;
+        --rightGridCol: 2fr;
+      }
+    </style>
+  </head>
+  
+  <body>
+		<div id="page" class="codeIDE_Container">
+			<div id="header">
+				Header
+			</div>
+            
+			<div id="idLeftSidebar">
+				Left Col
+			</div>
+            
+			<div id="leftdragbar" onmousedown="AlanWells.dragGridInEditor('left');" onmouseup="AlanWells.dragBarMouseUp('left')"></div>
+			
+            <div id="tabs">
+				Tabs
+			</div>
+            
+			<div id="idCodeEditor">
+				Code Editor
+			</div>
+			
+            <div id="idPreviewDragbar" onmousedown="AlanWells.dragGridInEditor('right')"></div>
+			
+            <div id="idHtmlPreview">
+				HTML Preview
+			</div>
+			
+            <div id="footer">
+				Footer
+			</div>
+		</div>
+        
+  <?!= HtmlService.createHtmlOutputFromFile("JS_Draggable.html").getContent() ?>
+  
+  </body>
+</html>
+
+
