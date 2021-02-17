@@ -7,4 +7,8 @@ The Web App is an example of CSS grids.
 The CSS has 5 grid columns.  
 Two of the grid columns are for drag bars that are only a few pixels wide.  
 The app has 3 panes in the main body which can be resized using left and right drag bars.  
-The way that the resizing of the grid sections is done also allows the sections to be resized when the browser size is changed.
+The way that the resizing of the grid sections is done also allows the sections to be resized when the browser size is changed.  
+  
+CSS grid has a special size unit named "fr" which is short for "fraction" but is a "flex" capability.  
+So CSS grid has the same capability of a flex-box but there are a lot more options with CSS grid.
+
